@@ -7,7 +7,7 @@ export default function ChatBot() {
     async function enviarMensaje() {
         if (!userInput) return;
 
-        console.log("Mensaje del usuario:", userInput);  // Verifica que el mensaje del usuario se capture en la consola
+        console.log("Mensaje del usuario:", userInput);  // Verifica que el mensaje del usuario capture en la consola
 
         // Añadir el mensaje del usuario a los mensajes
         setMessages([...messages, { sender: "user", text: userInput }]);
