@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function ChatBot() {
     const [messages, setMessages] = useState([]);
     const [userInput, setUserInput] = useState("");
 
+    // Función para cargar mensajes del historial cuando el componente se monta
+    useEffect(() => {
+        async function fetchMessages() {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/api/messages");
+                const data = await response.json();
+                setMessages(data); // Guardar los mensajes en el estado
+            } catch (error) {
+                console.error("Error al cargar mensajes:", error);
+            }
+        }
+
+        fetchMessages();
+    }, []);
+
+    // Función para enviar el mensaje a la API
     async function enviarMensaje() {
         if (!userInput) return;
-
-        console.log("Mensaje del usuario:", userInput);  // Verifica que el mensaje del usuario capture en la consola
 
         // Añadir el mensaje del usuario a los mensajes
         setMessages([...messages, { sender: "user", text: userInput }]);
